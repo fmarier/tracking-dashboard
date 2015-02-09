@@ -13,7 +13,9 @@ var endDate = new Date(2015, 0, 1);
 
 // Versions for which we have any data.
 var channels = {
-  nightly: [ "nightly/35", "nightly/36", "nightly/37" ],
+  nightly: [ "nightly/35", "nightly/36", "nightly/37", "nightly/38" ],
+  aurora: [ "aurora/35", "aurora/36", "aurora/37" ],
+  beta: [ "beta/35", "beta/36" ]
 };
 var currentChannel = "nightly";
 
@@ -42,15 +44,25 @@ function print(line) {
 };
 
 function changeView(channel) {
+  // Unselect the old channel
+  document.querySelector("#" + currentChannel)
+      .setAttribute("style", "background-color:white");
+  print("Current channel: ", channel);
+  currentChannel = channel;
   makeGraphsForChannel(currentChannel);
+  // Select the new channel. The highlighted button uses the same green color as
+  // Highcharts.
+  document.querySelector("#" + currentChannel)
+    .setAttribute("style", "background-color:#90ed7d");
 }
 
 // Initialize telemetry.js
 Telemetry.init(function() {
-print("Stats for 12/25-1/1");
+  print("Stats for 12/25-1/1");
 
   // For nightly versions, we only have one release per date, so we can
   // construct a single graph for all versions of nightly.
+  print("changing view");
   changeView("nightly");
 });
 
@@ -180,11 +192,13 @@ function makeTimeseriesForMeasure(version, measure) {
         });
         // We've collected all of the data for this version, so resolve.
         resolve(true);
+        /*
         if (total != 0) {
           print("Total loads: " + total);
           print("Blocked (shield showing): " + blocked);
           print("Loaded (strike shield showing): " + loaded);
         }
+        */
       }
     );
   });
@@ -219,10 +233,12 @@ function makeTimeseriesForEnabled(version, measure) {
         });
         // We've collected all of the data for this version, so resolve.
         resolve(true);
+        /*
         if (enabled_sessions != 0) {
           print("Total sessions: " + total);
           print("Enabled sessions: " + enabled_sessions);
         }
+        */
       }
     );
   });
@@ -260,10 +276,12 @@ function makeTimeseriesForEvents(version, measure) {
         });
         // We've collected all of the data for this version, so resolve.
         resolve(true);
+        /*
         if (disabled != 0) {
           print("Disabled clicks: " + disabled);
           print("Re-enabled clicks: " + enabled);
         }
+        */
       }
     );
   });
