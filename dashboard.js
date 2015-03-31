@@ -29,12 +29,14 @@ var versionedMeasures = [];
 var tsSeries = {};
 var volumeSeries = {};
 var enabled = [];
+var enabledTotal = [];
 var events = {};
 // Setup our highcharts on document-ready.
 $(document).ready(function() {
   tsChart = new Highcharts.StockChart(tsOptions);
   volumeChart = new Highcharts.StockChart(volumeOptions);
   enabledChart = new Highcharts.StockChart(enabledOptions);
+  enabledTotalChart = new Highcharts.StockChart(enabledTotalOptions);
   eventChart = new Highcharts.StockChart(eventOptions);
 });
 
@@ -125,6 +127,8 @@ function makeTimeseries(channel, versions)
       }
       enabled = normalizeSeries(enabled);
       enabledChart.series[0].setData(enabled, true);
+      enabledTotal = normalizeSeries(enabledTotal);
+      enabledTotalChart.series[0].setData(enabledTotal, true);
     });
 }
 
@@ -225,6 +229,7 @@ function makeTimeseriesForEnabled(version, measure) {
           if (date < (new Date() - 7 * 24 * 3600 * 1000)) {
             // 0 = disabled, 1 = enabled
             enabled.push([date.getTime(), data[1] / volume]);
+            enabledTotal.push([date.getTime(), data[1]]);
             if (date > minDate && date < endDate) {
               total += volume;
               enabled_sessions += data[1];

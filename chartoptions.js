@@ -103,6 +103,34 @@ var enabledOptions = {
   series: [{ name: 'Enabled' }]
 };
 
+var enabledTotalChart;
+var enabledTotalOptions = {
+  legend: {
+    enabled: true,
+    layout: 'vertical',
+    align: 'right',
+    verticalAlign: 'middle',
+    borderWidth: 2
+  },
+  chart: {
+    renderTo: 'enabledTotal'
+  },
+  title: {
+    text: 'Tracking Protection Sessions Enabled'
+  },
+  xAxis: {
+    type: 'datetime',
+    // milliseconds
+    minTickInterval: 24 * 3600 * 1000,
+  },
+  yAxis: {
+    title: {
+      text: 'Volume'
+    }
+  },
+  series: [{ name: 'Enabled' }]
+};
+
 var eventChart;
 var eventOptions = {
   legend: {
