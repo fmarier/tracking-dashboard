@@ -116,7 +116,7 @@ var enabledTotalOptions = {
     renderTo: 'enabledTotal'
   },
   title: {
-    text: 'Tracking Protection Sessions Enabled'
+    text: 'Tracking Protection Sessions Enabled (Volume)'
   },
   xAxis: {
     type: 'datetime',
